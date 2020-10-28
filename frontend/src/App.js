@@ -8,7 +8,7 @@ import PlantSelector from './PlantSelector';
 import { apiCall } from './utils/fetchCalls';
 import { getPlantIDTuples } from './utils/plantIDs';
 
-export const App = () => {
+const App = () => {
   const [plantData, setPlantData] = useState([])
 
   useEffect(() => {
@@ -51,3 +51,5 @@ export const App = () => {
     </Container>
   );
 }
+
+export default App;
