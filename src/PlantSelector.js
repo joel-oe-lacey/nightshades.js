@@ -3,7 +3,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-export const PlantSelector = (plantData) => {
+export const PlantSelector = ({plantData}) => {
     return (
         <Autocomplete
             id="plant-selector"
