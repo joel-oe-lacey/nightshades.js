@@ -16,24 +16,27 @@ const App = () => {
   }, [])
 
   const retrieveInitialCollection = async () => {
-      const plantList = await apiCall(`https://trefle.io/api/v1/plants?filter_not%5Bedible_part%5D=null&token=kCpt8a54u3_VH15-OQPjwAirxVx0L3TEfy2BYm7eXCY`)
+      const token = '&token=eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4OTk0LCJvcmlnaW4iOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJpcCI6bnVsbCwiZXhwaXJlIjoiMjAyMC0xMC0zMCAxOToxMzoyMiArMDAwMCIsImV4cCI6MTYwNDA4NTIwMn0.cuwIv8OqCEHVnE12ig17BPWmt1YAtDcoDX9dKL0t0XA'
+      const plantList = await apiCall(`https://trefle.io/api/v1/plants?filter_not%5Bedible_part%5D=null` + token)
       const rawPlantData = await plantList.json();
-      const plantIDData = getPlantIDTuples(rawPlantData);
-      if (plantList.links.next) {
-          retrieveSubseqCollections(plantIDData, plantList.links.next)
+      const plantIDData = getPlantIDTuples(rawPlantData.data);
+      if (rawPlantData.links.next) {
+        retrieveSubseqCollections(plantIDData, rawPlantData.links.next, token)
       } else {
         setPlantData(plantIDData)
       }
   }
 
-  const retrieveSubseqCollections = async (dataSoFar, link) => {
-      const plantList = await apiCall(`${link}`)
-      const rawPlantData = await plantList.json();
-      const plantIDData = getPlantIDTuples(rawPlantData);
-      const totalPlantData = [...plantIDData, ...dataSoFar]
+  const retrieveSubseqCollections = async (dataSoFar, link, token) => {
+    const plantList = await apiCall('https://trefle.io' + link + token)
+    const rawPlantData = await plantList.json();
+    const plantIDData = getPlantIDTuples(rawPlantData.data);
+    const totalPlantData = [...plantIDData, ...dataSoFar]
+    // eslint-disable-next-line no-console
+    console.log(rawPlantData.links.next)
 
-      if (plantList.links.next) {
-        retrieveSubseqCollections(totalPlantData, plantList.links.next)
+      if (rawPlantData.links.next) {
+        retrieveSubseqCollections(totalPlantData, rawPlantData.links.next, token)
       } else {
         setPlantData(totalPlantData)
       }
