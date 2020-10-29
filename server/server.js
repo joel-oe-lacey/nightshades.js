@@ -1,15 +1,14 @@
-// require('dotenv').config()
+require('dotenv').config()
 const fetch = require('node-fetch');
 // const express = require('express');
 // const app = express();
 
 const params = {
   origin: 'http://localhost:3000',
-//   ip: '68.197.154.229',
-  token: 'kCpt8a54u3_VH15-OQPjwAirxVx0L3TEfy2BYm7eXCY'
+//   ip: '',
+  token: process.env.TOKEN
 }
 
-// console.log('envTest', process.env)
 const fetchJWT = async () => {
   const response = await fetch(
     'https://trefle.io/api/auth/claim', {
