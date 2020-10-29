@@ -11,8 +11,8 @@ import { getPlantIDTuples } from './utils/plantIDs';
 
 const App = () => {
   const [plantData, setPlantData] = useState([])
-  // const [selectedPlant, choosePlant] = useState(false)
-  
+  const [selectedPlant, choosePlant] = useState(false)
+
   useEffect(() => {
     retrieveInitialCollection()
   }, [])
@@ -51,7 +51,7 @@ const App = () => {
         </Typography>
         {
           plantData.length ? 
-          <PlantSelector plantData={plantData} /> 
+          <PlantSelector plantData={plantData} choosePlant={choosePlant} /> 
           : <CircularProgress />
         }
         <ProTip />
