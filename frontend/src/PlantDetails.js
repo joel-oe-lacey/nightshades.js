@@ -18,7 +18,15 @@ const PlantDetails = ({plantData, choosePlant}) => {
     }
 
     return (
-
+        <Container maxWidth="sm">
+            <section>
+                <image src="" alt="A image of the selected plant"></image>
+                <Container>
+                    <h2></h2>
+                    <h1></h1>
+                </Container>
+            </section>
+        </Container>
     );
 }
 
