@@ -8,6 +8,7 @@ import ProTip from './ProTip';
 import PlantSelector from './PlantSelector';
 import { apiCall } from './utils/fetchCalls';
 import { getPlantIDTuples } from './utils/plantIDs';
+import Router from 'preact-router';
 
 const App = () => {
   const [plantData, setPlantData] = useState([])
@@ -48,18 +49,25 @@ const App = () => {
 
   return (
     <Container maxWidth="sm">
-      <Box my={4}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Preact v4-beta example
-        </Typography>
-        {
-          plantData.length ? 
-          <PlantSelector plantData={plantData} /> 
-          // <PlantSelector plantData={plantData} choosePlant={choosePlant} /> 
-          : <CircularProgress />
-        }
-        <ProTip />
-      </Box>
+      <Router>
+        <Box my={4} path="/">
+            <Typography variant="h4" component="h1" gutterBottom>
+              Preact v4-beta example
+            </Typography>
+            {
+              plantData.length ? 
+              <PlantSelector plantData={plantData} /> 
+              // <PlantSelector plantData={plantData} choosePlant={choosePlant} /> 
+              : <CircularProgress />
+            }
+            <ProTip />
+        </Box>
+        <Box my={4} path="/id/:id">
+            <Typography variant="h4" component="h1" gutterBottom>
+              Test Route
+            </Typography>
+        </Box>
+      </Router>
     </Container>
   );
 }
