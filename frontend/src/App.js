@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+import React from 'react';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -7,15 +7,13 @@ import PlantSelector from './PlantSelector';
 import Router from 'preact-router';
 
 const App = () => {
-  const [selectedPlant, choosePlant] = useState(false)
-
   return (
     <Container maxWidth="sm">
       <Router>
-        <PlantSelector choosePlant={choosePlant} path="/" /> 
+        <PlantSelector path="/" /> 
         <Box my={4} path="/id/:id">
             <Typography variant="h4" component="h1" gutterBottom>
-              {selectedPlant}
+              Test
             </Typography>
         </Box>
       </Router>

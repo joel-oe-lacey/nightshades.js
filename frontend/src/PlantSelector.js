@@ -3,13 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { apiCall } from './utils/fetchCalls';
 import { getPlantIDTuples } from './utils/plantIDs';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
+import { route } from 'preact-router';
 
-const PlantSelector = ({ choosePlant }) => {
+const PlantSelector = () => {
     const [plantData, setPlantData] = useState([])
+    const [selectedPlant, choosePlant] = useState(false)
 
     useEffect(() => {
         retrieveInitialCollection()
@@ -49,17 +52,20 @@ const PlantSelector = ({ choosePlant }) => {
               Preact v4-beta example
             </Typography>
             {
-              plantData.length ? 
-                <Autocomplete
-                    id="plant-selector"
-                    options={plantData}
-                    getOptionLabel={(option) => option.name}
-                    onChange={(event, plant) => {
-                        choosePlant(plant);
-                    }}
-                    renderInput={(params) => <TextField {...params} label="Combo box" variant="outlined" />
-                    }
-                />    
+              plantData.length ?
+                <section>
+                    <Autocomplete
+                        id="plant-selector"
+                        options={plantData}
+                        getOptionLabel={(option) => option.name}
+                        onChange={(event, plant) => {
+                            choosePlant(plant);
+                        }}
+                        renderInput={(params) => <TextField {...params} label="Combo box" variant="outlined" />
+                        }
+                    />    
+                    <Button variant="contained" onClick={() => route(`/id/${selectedPlant.id}`)}>Submit</Button>
+                </section>
               : <CircularProgress />
             }
         </Box>
