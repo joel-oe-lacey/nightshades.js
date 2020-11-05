@@ -1,13 +1,14 @@
 require('dotenv').config()
 const fetch = require('node-fetch');
-// const express = require('express');
-// const app = express();
+const express = require('express');
+const cors = require('cors')
+const app = express();
+const port = process.env.PORT;
 
 const params = {
-  origin: 'http://localhost:3000',
-//   ip: '',
+  origin: process.env.ORIGIN,
   token: process.env.TOKEN
-}
+};
 
 const fetchJWT = async () => {
   const response = await fetch(
@@ -16,8 +17,17 @@ const fetchJWT = async () => {
       body: JSON.stringify(params),
       headers: { 'Content-Type': 'application/json' }
     });
-  const json = await response.json();
-  console.log(json);
-}
+    
+    const json = await response.json();
+    return json;
+  };
+  
+app.use(cors())
+app.get('/', async (request, response) => {
+  const jwt = await fetchJWT();
+  response.send(jwt);
+});
 
-fetchJWT();
+app.listen(port, () => {
+  console.log(`Server running at: http://localhost:${port}/`);
+});
