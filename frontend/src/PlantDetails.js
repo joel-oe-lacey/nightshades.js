@@ -14,7 +14,7 @@ const PlantDetails = ({id}) => {
     const retrievePlantData = async () => {
         const tokenFetch = await apiCall(`http://localhost:8080/`);
         const tokenData = await tokenFetch.json();
-        const plantList = await apiCall(`https://trefle.io/api/v1/plants/${id}&token=${tokenData.token}`);
+        const plantList = await apiCall(`https://trefle.io/api/v1/plants/${id}?token=${tokenData.token}`);
         const rawPlantData = await plantList.json();
         
         // eslint-disable-next-line no-console
