@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
 import { apiCall } from './utils/fetchCalls';
+import { makeStyles } from '@material-ui/core/styles';
 import { getPlantIDTuples } from './utils/plantIDs';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -9,6 +10,10 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
 import { route } from 'preact-router';
+
+const useStyles = makeStyles((theme) => ({
+
+}));
 
 const PlantSelector = () => {
     const [plantData, setPlantData] = useState([])
