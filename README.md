@@ -1,36 +1,16 @@
-# Preact example
+# Nightshades.js
+### An app to ensure you're adhering to a Tom Brady approved diet
+Tom Brady adheres to a strict No Nightshades diet. As the definitive example of peak human performance, he must be onto something. What is a nightshade, and how can I make sure I'm not eating them? In steps this app, solving problems you didn't even know you had.
 
-## How to use
+## Tech
+- Preact
+- Material UI
+- Node
+- Express 
 
-Download the example [or clone the repo](https://github.com/mui-org/material-ui):
+The data is sourced from the [**Trefle API**](https://trefle.io/)
 
-```sh
-curl https://codeload.github.com/mui-org/material-ui/tar.gz/master | tar -xz --strip=2  material-ui-master/examples/preact
-cd preact
-```
+## Features
+Users can select an edible plant of their choosing from an autocomplete. Upon selecting a plant, they can then view details on that plant, including whether it's Tom Brady Approved ™️. Sourcing the data on the client side requires the utilization of a very basic Express server for JWT auth.
 
-Install it and run:
-
-```sh
-npm install
-npm run start
-```
-or:
-
-[![Edit on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/mui-org/material-ui/tree/master/examples/preact)
-
-## The idea behind the example
-
-[Preact](https://github.com/developit/preact) is a fast 3kB alternative to React with the same modern API.
-
-This example uses an ejected version of CRA.
-It's ejected to change the webpack configuration:
-
-```js
-alias: {
-  // Use Preact instead of React.
-  'react': 'preact/compat',
-  'react-dom': 'preact/compat',
-}
-```
-# nightshades.js
+This app is built as a goofy exploration into some fun development concepts, namely Variable Fonts & JWT authorization. Designed as the centerpiece for an accompanying video, which also looks to provide some neat botanical knowledge. ***Link will be posted on the repo once completed and released.***
