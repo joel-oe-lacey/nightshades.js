@@ -15,18 +15,25 @@ import { route } from 'preact-router';
 const useStyles = makeStyles(() => ({
     wrapper: {
         height: '100%',
-        width: '100%'
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'center'
     },
     title: {
         textAlign: 'center'
     },
     root: {
-        height: '80%',
-        width: '100%',
+        height: '50%',
+        width: '80%',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space around'
+        justifyContent: 'space-around',
     },
+    loading: {
+        alignSelf: 'center'
+    }
 }));
 
 const PlantSelector = () => {
@@ -67,7 +74,7 @@ const PlantSelector = () => {
 
     return (
 
-        <Box my={4} className={classes.wrapper}>
+        <Box className={classes.wrapper}>
             <Typography variant="h4" component="h1" gutterBottom className={classes.title}>
               Can Tom Brady Eat This?
             </Typography>
@@ -86,7 +93,10 @@ const PlantSelector = () => {
                     />    
                     <Button variant="contained" onClick={() => route(`/id/${selectedPlant.id}`)}>Submit</Button>
                 </Container>
-              : <CircularProgress />
+              : 
+                <Container className={classes.root}>
+                    <CircularProgress className={classes.loading} />
+                </Container>
             }
         </Box>
 
