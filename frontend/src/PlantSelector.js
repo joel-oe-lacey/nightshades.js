@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { apiCall } from './utils/fetchCalls';
 import { makeStyles } from '@material-ui/core/styles';
 import { getPlantIDTuples } from './utils/plantIDs';
+import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -11,11 +12,25 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
 import { route } from 'preact-router';
 
-const useStyles = makeStyles((theme) => ({
-
+const useStyles = makeStyles(() => ({
+    wrapper: {
+        height: '100%',
+        width: '100%'
+    },
+    title: {
+        textAlign: 'center'
+    },
+    root: {
+        height: '80%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space around'
+    },
 }));
 
 const PlantSelector = () => {
+    const classes = useStyles();
     const [plantData, setPlantData] = useState([])
     const [selectedPlant, choosePlant] = useState(false)
 
@@ -52,13 +67,13 @@ const PlantSelector = () => {
 
     return (
 
-        <Box my={4}>
-            <Typography variant="h4" component="h1" gutterBottom>
-              Preact v4-beta example
+        <Box my={4} className={classes.wrapper}>
+            <Typography variant="h4" component="h1" gutterBottom className={classes.title}>
+              Can Tom Brady Eat This?
             </Typography>
             {
               plantData.length ?
-                <section>
+                <Container className={classes.root}>
                     <Autocomplete
                         id="plant-selector"
                         options={plantData}
@@ -66,11 +81,11 @@ const PlantSelector = () => {
                         onChange={(event, plant) => {
                             choosePlant(plant);
                         }}
-                        renderInput={(params) => <TextField {...params} label="Combo box" variant="outlined" />
+                        renderInput={(params) => <TextField {...params} label="Choose A Plant" variant="outlined" />
                         }
                     />    
                     <Button variant="contained" onClick={() => route(`/id/${selectedPlant.id}`)}>Submit</Button>
-                </section>
+                </Container>
               : <CircularProgress />
             }
         </Box>
