@@ -98,30 +98,42 @@ const PlantDetails = ({id}) => {
                             <Typography paragraph>
                                 Family: {plantData.family_common_name}
                             </Typography>
-                            <Typography paragraph>Other Names:</Typography>
-                            <List>
-                                {plantData.main_species.common_names.en.map(name => {
-                                    return (
-                                        <ListItem>
-                                            <ListItemText
-                                                primary={name}
-                                            />
-                                        </ListItem>
-                                    )
-                                })}
-                            </List>
-                            <Typography paragraph>Native Distribution:</Typography>
-                            <List>
-                                {plantData.main_species.distribution.native.map(name => {
-                                    return (
-                                        <ListItem>
-                                            <ListItemText
-                                                primary={name}
-                                            />
-                                        </ListItem>
-                                    )
-                                })}
-                            </List>
+                            {
+                                plantData?.main_species?.common_names && (
+                                    <React.Fragment>
+                                        <Typography paragraph>Other Names:</Typography>
+                                        <List>
+                                            {plantData.main_species.common_names.en.map(name => {
+                                                return (
+                                                    <ListItem>
+                                                        <ListItemText
+                                                            primary={name}
+                                                        />
+                                                    </ListItem>
+                                                )
+                                            })}
+                                        </List>
+                                    </React.Fragment>
+                                )
+                            }
+                            {
+                                plantData?.main_species?.distribution?.native && (
+                                    <React.Fragment>
+                                        <Typography paragraph>Native Distribution:</Typography>
+                                        <List>
+                                            {plantData.main_species.distribution.native.map(name => {
+                                                return (
+                                                    <ListItem>
+                                                        <ListItemText
+                                                            primary={name}
+                                                        />
+                                                    </ListItem>
+                                                )
+                                            })}
+                                        </List>
+                                    </React.Fragment>
+                                )
+                            }
                             </CardContent>
                         </Collapse>
                     </Card> 
