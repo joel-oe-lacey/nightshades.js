@@ -30,7 +30,9 @@ const theme = createMuiTheme({
         },
         '#root': {
           height: '100%',
-          width: '100%'
+          width: '100%',
+          overflow: 'scroll',
+          backgroundColor: '#333333'
         },
       },
     },
