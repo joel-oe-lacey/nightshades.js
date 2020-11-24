@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import { apiCall } from './utils/fetchCalls';
+import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
@@ -18,12 +18,27 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: '75vw',
+  wrapper: {
+    height: 'max-content',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center'
   },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
+  card: {
+    height: '80%',
+    width: '100%',
+    margin: '3rem 0 3rem 0'
+  },
+  details: {
+    height: '25rem',
+    width: '100%'
+  },
+  plantImg: {
+    objectFit: 'contain',
+    height: '100%',
+    width: '50%'
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -60,19 +75,23 @@ const PlantDetails = ({id}) => {
     }
 
     return (
-        <React.Fragment>
+        <Container className={classes.wrapper}>
             {
                 Object.keys(plantData).length ? 
-                    <Card className={classes.root}>
+                    <Card className={classes.card}>
                         <CardHeader
                             title={plantData.common_name}
                             subheader={plantData.id}
                         />
-                        <CardMedia
-                            className={classes.media}
-                            image={plantData.image_url}
-                            title={plantData.common_name}
-                        />
+                        <Container
+                            className={classes.details}
+                        >
+                            <img 
+                                className={classes.plantImg}
+                                src={plantData.image_url}
+                                alt={plantData.common_name}
+                            />
+                        </Container>
                         <CardContent>
                             <Typography variant="body2" color="textSecondary" component="p">
                             {plantData.scientific_name}
@@ -98,36 +117,48 @@ const PlantDetails = ({id}) => {
                             <Typography paragraph>
                                 Family: {plantData.family_common_name}
                             </Typography>
-                            <Typography paragraph>Other Names:</Typography>
-                            <List>
-                                {plantData.main_species.common_names.en.map(name => {
-                                    return (
-                                        <ListItem>
-                                            <ListItemText
-                                                primary={name}
-                                            />
-                                        </ListItem>
-                                    )
-                                })}
-                            </List>
-                            <Typography paragraph>Native Distribution:</Typography>
-                            <List>
-                                {plantData.main_species.distribution.native.map(name => {
-                                    return (
-                                        <ListItem>
-                                            <ListItemText
-                                                primary={name}
-                                            />
-                                        </ListItem>
-                                    )
-                                })}
-                            </List>
+                            {
+                                plantData?.main_species?.common_names?.en && (
+                                    <React.Fragment>
+                                        <Typography paragraph>Other Names:</Typography>
+                                        <List>
+                                            {plantData.main_species.common_names.en.map(name => {
+                                                return (
+                                                    <ListItem>
+                                                        <ListItemText
+                                                            primary={name}
+                                                        />
+                                                    </ListItem>
+                                                )
+                                            })}
+                                        </List>
+                                    </React.Fragment>
+                                )
+                            }
+                            {
+                                plantData?.main_species?.distribution?.native && (
+                                    <React.Fragment>
+                                        <Typography paragraph>Native Distribution:</Typography>
+                                        <List>
+                                            {plantData.main_species.distribution.native.map(name => {
+                                                return (
+                                                    <ListItem>
+                                                        <ListItemText
+                                                            primary={name}
+                                                        />
+                                                    </ListItem>
+                                                )
+                                            })}
+                                        </List>
+                                    </React.Fragment>
+                                )
+                            }
                             </CardContent>
                         </Collapse>
                     </Card> 
                 : <CircularProgress />
             }
-        </React.Fragment>
+        </Container>
     );
 }
 

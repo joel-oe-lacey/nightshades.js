@@ -322,6 +322,19 @@ module.exports = function(webpackEnv) {
                 name: 'static/media/[name].[hash:8].[ext]',
               },
             },
+            {
+                test: /\.ttf$/,
+                loader: 'url-loader',
+                options: {
+                    // Limit at 50k. Above that it emits separate files
+                    limit: 50000,
+                    // url-loader sets mimetype if it's passed.
+                    // Without this it derives it from the file extension
+                    // mimetype: 'application/font-otf',
+                    // Output below fonts directory
+                    name: '../src/fonts/[name].[ext]',
+                },
+            },
             // Process application JS with Babel.
             // The preset includes JSX, Flow, TypeScript, and some ESnext features.
             {
@@ -342,6 +355,7 @@ module.exports = function(webpackEnv) {
                       },
                     },
                   ],
+                  ['@babel/plugin-proposal-optional-chaining']
                 ],
                 // This is a feature of `babel-loader` for webpack (not Babel itself).
                 // It enables caching results in ./node_modules/.cache/babel-loader/
