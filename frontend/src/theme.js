@@ -1,6 +1,17 @@
 import { red } from '@material-ui/core/colors';
 import { createMuiTheme } from '@material-ui/core/styles';
+import Decovar from './fonts/DecovarAlpha-VF.ttf';
 
+const decovar = {
+  fontFamily: 'Decovar',
+  fontStyle: 'normal',
+  fontDisplay: 'swap',
+  fontWeight: 400,
+  src: `
+    local('Decovar'),
+    url(${Decovar}) format('truetype')
+  `,
+}
 // A custom theme for this app
 const theme = createMuiTheme({
   palette: {
@@ -20,6 +31,7 @@ const theme = createMuiTheme({
   overrides: {
     MuiCssBaseline: {
       '@global': {
+        '@font-face': [decovar],
         html: {
           height: '100%',
           width: '100%'
