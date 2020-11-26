@@ -33,7 +33,11 @@ const useStyles = makeStyles((theme) => ({
   },
   details: {
     height: '25rem',
-    width: '100%'
+    width: '100%',
+    display: 'flex',
+    flexFlow: 'column wrap',
+    justifyContent: 'space-around',
+    alignItems: 'center'
   },
   plantImg: {
     objectFit: 'contain',
@@ -74,6 +78,9 @@ const PlantDetails = ({id}) => {
         setPlantData(fetchedPlantData.data);
     }
 
+    // eslint-disable-next-line no-console
+    console.log(plantData)
+
     return (
         <Container className={classes.wrapper}>
             {
@@ -81,9 +88,9 @@ const PlantDetails = ({id}) => {
                     <Card className={classes.card}>
                         <CardHeader
                             title={plantData.common_name}
-                            subheader={plantData.id}
+                            subheader={plantData.scientific_name}
                         />
-                        <Container
+                        <CardContent
                             className={classes.details}
                         >
                             <img 
@@ -91,10 +98,11 @@ const PlantDetails = ({id}) => {
                                 src={plantData.image_url}
                                 alt={plantData.common_name}
                             />
-                        </Container>
-                        <CardContent>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                            {plantData.scientific_name}
+                            <Typography variant="header2" color="textSecondary" component="p">
+                                Can Tom Brady eat this?
+                            </Typography>
+                            <Typography variant="header1" color="textSecondary" component="p">
+                                {plantData.family.id === 28 ? 'NO' : 'YES'}
                             </Typography>
                         </CardContent>
                         <CardActions disableSpacing>
