@@ -16,6 +16,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import EcoIcon from '@material-ui/icons/Eco';
+// import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -87,7 +90,7 @@ const PlantDetails = ({id}) => {
                 Object.keys(plantData).length ? 
                     <Card className={classes.card}>
                         <CardHeader
-                            title={plantData.common_name}
+                            title={plantData.main_species.common_name}
                             subheader={plantData.scientific_name}
                         />
                         <CardContent
@@ -120,19 +123,22 @@ const PlantDetails = ({id}) => {
                         <Collapse in={expanded} timeout="auto" unmountOnExit>
                             <CardContent>
                             <Typography paragraph>
-                                Scientfic Name: {plantData.scientific_name}
+                                <strong>Scientfic Name:</strong> {plantData.scientific_name}
                             </Typography>
                             <Typography paragraph>
-                                Family: {plantData.family_common_name}
+                                <strong>Family:</strong> {plantData.family_common_name} ({plantData.family.name})
                             </Typography>
                             {
                                 plantData?.main_species?.common_names?.en && (
                                     <React.Fragment>
-                                        <Typography paragraph>Other Names:</Typography>
+                                        <Typography><strong>Other Names:</strong></Typography>
                                         <List>
                                             {plantData.main_species.common_names.en.map(name => {
                                                 return (
                                                     <ListItem>
+                                                        <ListItemIcon>
+                                                            <EcoIcon />
+                                                        </ListItemIcon>
                                                         <ListItemText
                                                             primary={name}
                                                         />
@@ -146,11 +152,14 @@ const PlantDetails = ({id}) => {
                             {
                                 plantData?.main_species?.distribution?.native && (
                                     <React.Fragment>
-                                        <Typography paragraph>Native Distribution:</Typography>
+                                        <Typography><strong>Native Distribution:</strong></Typography>
                                         <List>
                                             {plantData.main_species.distribution.native.map(name => {
                                                 return (
                                                     <ListItem>
+                                                        <ListItemIcon>
+                                                            <EcoIcon />
+                                                        </ListItemIcon>
                                                         <ListItemText
                                                             primary={name}
                                                         />
