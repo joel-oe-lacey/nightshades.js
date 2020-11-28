@@ -128,6 +128,9 @@ const PlantDetails = ({id}) => {
                             <Typography paragraph>
                                 <strong>Family:</strong> {plantData.family_common_name} ({plantData.family.name})
                             </Typography>
+                            <Typography paragraph>
+                                <strong>Genus:</strong> {plantData.genus.name} 
+                            </Typography>
                             {
                                 plantData?.main_species?.common_names?.en && (
                                     <React.Fragment>
