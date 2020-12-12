@@ -1,15 +1,15 @@
 import { red } from '@material-ui/core/colors';
 import { createMuiTheme } from '@material-ui/core/styles';
-import Decovar from './fonts/DecovarAlpha-VF.ttf';
+// import Decovar from './fonts/DecovarAlpha-VF.ttf';
 
 const decovar = {
-  fontFamily: 'Decovar',
-  fontStyle: 'normal',
-  fontDisplay: 'swap',
-  fontWeight: 400,
+  fontFamily: 'Decovar Alpha Regular24',
+  // fontStyle: 'normal',
+  // fontDisplay: 'swap',
+  fontWeight: '100 1000',
   src: `
     local('Decovar'),
-    url(${Decovar}) format('truetype')
+    url('https://joel-oe-lacey-resources.s3.amazonaws.com/DecovarAlpha-VF.ttf') format ('truetype')
   `,
 }
 // A custom theme for this app
