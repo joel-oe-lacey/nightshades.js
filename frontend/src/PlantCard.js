@@ -5,10 +5,16 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import { route } from 'preact-router';
 
 const useStyles = makeStyles(() => ({
   card: {
     height: '450px',
+  },
+  actionArea: {
+    height: '100%',
+    width: '100%'
   },
   title: {
     height: '25%',
@@ -23,22 +29,29 @@ const useStyles = makeStyles(() => ({
 
 const PlantCard = ({ PlantDetails }) => {
     const classes = useStyles();
-    const { common_name, scientific_name, image_url } = PlantDetails;
+    const { id, common_name, scientific_name, image_url } = PlantDetails;
 
     return (
         <Grid item xs={3}>
             <Card className={classes.card}>
+              <CardActionArea
+                className={classes.actionArea}
+                onClick={() => {
+                  route(`/plant/${id}`)
+                }}
+              >
                 <CardHeader
                   className={classes.title}
-                    title={common_name}
-                    subheader={scientific_name}
+                  title={common_name}
+                  subheader={scientific_name}
                 />
                 <CardMedia
-                    className={classes.media}
-                    component="img"
-                    src={image_url}
-                    title={common_name}
+                  className={classes.media}
+                  component="img"
+                  src={image_url}
+                  title={common_name}
                 />
+              </CardActionArea>
             </Card>
         </Grid>
     );
