@@ -2,8 +2,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import PlantSelector from './PlantSelector';
+// import PlantSelector from './PlantSelector';
+import RegionSelector from './RegionSelector';
 import PlantDetails from './PlantDetails';
+import RegionDisplay from './RegionDisplay';
 import Router from 'preact-router';
 
 const useStyles = makeStyles(() => ({
@@ -19,8 +21,9 @@ const App = () => {
   return (
     <Container className={classes.appWrapper}>
       <Router>
-        <PlantSelector path="/" /> 
-        <PlantDetails path="/id/:id" />
+        <RegionSelector path="/" /> 
+        <PlantDetails path="/plant/:id" />
+        <RegionDisplay path="/region/:id" />
       </Router>
     </Container>
   );
