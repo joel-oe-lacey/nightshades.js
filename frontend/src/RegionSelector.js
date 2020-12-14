@@ -1,16 +1,14 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
-import { apiCall } from './utils/fetchCalls';
 import { makeStyles } from '@material-ui/core/styles';
-import { getPlantIDTuples } from './utils/plantIDs';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
 import { route } from 'preact-router';
+import { tdwgRegionsData } from './utils/tdwg_regions';
 
 const useStyles = makeStyles(() => ({
     wrapper: {
@@ -39,50 +37,45 @@ const useStyles = makeStyles(() => ({
 
 const RegionSelector = () => {
     const classes = useStyles();
-    const [regionData, setRegionData] = useState([])
+    // const [regionData, setRegionData] = useState([])
     const [selectedRegion, chooseRegion] = useState(false)
 
     //If names aren't optimal, can use TDWG location mapping
     //https://www.tdwg.org/standards/wgsrpd/
+    //going to need to do this as regions don't map to traditional "countries"
 
-    useEffect(() => {
-        retrieveRegions()
-    }, [])
+    //you have a backend for client side apps, can this do some of the handling?
+    //express server have DB to load the TDWG regions
+    //can also just have JSON of L3 Code: L3 Region pair 
 
-    const retrieveRegions = async () => {
-        const tokenFetch = await apiCall(`http://localhost:8080/`);
-        const tokenData = await tokenFetch.json();
-        const regionList = await apiCall(`https://trefle.io/api/v1/distributions&token=${tokenData.token}`);
-        const rawRegionData = await regionList.json();
-        setRegionData(rawRegionData)
-    }
+    //document as you go
+    //tdwg has many levels, each one has a different ID format, these correspond as IDs in trefle for distributions
+    //we're going with level 3
+    //take the id hit distribution/id 
+    //this will give you all the plants to render in a menu 
 
     return (
-
         <Box className={classes.wrapper}>
             <Typography variant="h4" component="h1" gutterBottom className={classes.title}>
               Select your region
             </Typography>
-            {
-              regionData.length ?
-                <Container className={classes.root}>
-                    <Autocomplete
-                        id="plant-selector"
-                        options={regionData}
-                        getOptionLabel={(option) => option.name}
-                        onChange={(event, region) => {
-                            chooseRegion(region);
-                        }}
-                        renderInput={(params) => <TextField {...params} label="Choose A Region" variant="outlined" />
-                        }
-                    />    
-                    <Button variant="contained" onClick={() => route(`/region/${selectedRegion.id}`)}>Submit</Button>
-                </Container>
-              : 
-                <Container className={classes.root}>
-                    <CircularProgress className={classes.loading} />
-                </Container>
-            }
+            <Container className={classes.root}>
+                <Autocomplete
+                    id="plant-selector"
+                    options={tdwgRegionsData}
+                    getOptionLabel={(option) => option.L3Area}
+                    onChange={(event, region) => {
+                        chooseRegion(region);
+                    }}
+                    renderInput={(params) => <TextField {...params} label="Choose A Region" variant="outlined" />
+                }
+                />    
+                <Button variant="contained" onClick={() => {
+                    if(selectedRegion) {                        
+                        route(`/region/${selectedRegion.L3Code}`)
+                    }
+                }}>Submit</Button>
+            </Container>
         </Box>
 
     );
