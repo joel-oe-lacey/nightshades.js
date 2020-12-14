@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import PlantCard from './PlantCard';
 import Typography from '@material-ui/core/Typography';
+import { tdwgRegionsLookup } from './utils/tdwg_regions';
 
 const useStyles = makeStyles(() => ({
     grid: {
@@ -42,7 +43,7 @@ const RegionDisplay = ({id}) => {
                     gutterBottom 
                     className={classes.title}
                 >
-                    Select Your Region
+                    Plants Native To {tdwgRegionsLookup[id.toUpperCase()]}
                 </Typography>
             </Grid>
             {
