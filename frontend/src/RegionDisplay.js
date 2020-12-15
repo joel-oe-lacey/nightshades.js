@@ -7,6 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import PlantCard from './PlantCard';
 import Typography from '@material-ui/core/Typography';
 import { tdwgRegionsLookup } from './utils/tdwg_regions';
+import PlantDetails from './PlantDetails';
 
 const useStyles = makeStyles(() => ({
     grid: {
@@ -20,6 +21,10 @@ const useStyles = makeStyles(() => ({
 const RegionDisplay = ({id}) => {
     const classes = useStyles();
     const [plantData, setPlantData] = useState({})
+    const [open, setOpen] = useState(false);
+    const [chosenPlant, choosePlant] = useState(1);
+    // const [pageNum, setPageNum] = useState(1);
+
 
     useEffect(() => {
         retrieveRegionPlantData()
@@ -48,11 +53,14 @@ const RegionDisplay = ({id}) => {
             </Grid>
             {
                 Object.keys(plantData).length ?
-                    plantData.map(plant => {
-                        return (
-                            <PlantCard PlantDetails={plant} />
-                        )
-                    }) 
+                    <React.Fragment>
+                        {plantData.map(plant => {
+                            return (
+                                <PlantCard PlantDetails={plant} choosePlant={choosePlant} setOpen={setOpen} />
+                            )
+                        })}
+                        <PlantDetails open={open} setOpen={setOpen} id={chosenPlant} />
+                    </React.Fragment>
                 : <CircularProgress />
             }
         </Grid>
