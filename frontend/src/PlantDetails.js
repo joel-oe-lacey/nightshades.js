@@ -18,7 +18,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import EcoIcon from '@material-ui/icons/Eco';
-// import CloseIcon from '@material-ui/icons/Close';
+import Modal from '@material-ui/core/Modal';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -59,18 +59,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PlantDetails = ({id}) => {
+const PlantDetails = ({open, setOpen, id}) => {
     const classes = useStyles();
     const [plantData, setPlantData] = useState({})
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = useState(false);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
+    const setClosed = () => {
+        setPlantData({});
+        setOpen(false);
+    }
+
     useEffect(() => {
-        retrievePlantData()
-    }, [])
+        if (open) {
+            retrievePlantData();
+        }
+    }, [open])
 
     const retrievePlantData = async () => {
         const tokenFetch = await apiCall(`http://localhost:8080/`);
@@ -88,6 +95,12 @@ const PlantDetails = ({id}) => {
         <Container className={classes.wrapper}>
             {
                 Object.keys(plantData).length ? 
+                <Modal
+                    open={open}
+                    onClose={setClosed}
+                    aria-labelledby={plantData.main_species.common_name}
+                    aria-describedby="A page of details about this plant."
+                >
                     <Card className={classes.card}>
                         <CardHeader
                             title={plantData.main_species.common_name}
@@ -176,6 +189,7 @@ const PlantDetails = ({id}) => {
                             </CardContent>
                         </Collapse>
                     </Card> 
+                </Modal>
                 : <CircularProgress />
             }
         </Container>
