@@ -11,7 +11,7 @@ import PlantDetails from './PlantDetails';
 
 const useStyles = makeStyles(() => ({
     grid: {
-        margin: '1rem'
+        marginTop: '1rem'
     },
     title: {
         color: 'lightgrey'

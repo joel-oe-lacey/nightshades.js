@@ -32,7 +32,7 @@ const PlantCard = ({ PlantDetails, choosePlant, setOpen }) => {
     const { id, common_name, scientific_name, image_url } = PlantDetails;
 
     return (
-        <Grid item xs={3}>
+        <Grid item lg={3} md={4} sm={6} xs={12}>
             <Card className={classes.card}>
               <CardActionArea
                 className={classes.actionArea}
