@@ -6,7 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import { route } from 'preact-router';
+// import { route } from 'preact-router';
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const PlantCard = ({ PlantDetails }) => {
+const PlantCard = ({ PlantDetails, choosePlant, setOpen }) => {
     const classes = useStyles();
     const { id, common_name, scientific_name, image_url } = PlantDetails;
 
@@ -37,7 +37,8 @@ const PlantCard = ({ PlantDetails }) => {
               <CardActionArea
                 className={classes.actionArea}
                 onClick={() => {
-                  route(`/plant/${id}`)
+                  choosePlant(id)
+                  setOpen(true)
                 }}
               >
                 <CardHeader
