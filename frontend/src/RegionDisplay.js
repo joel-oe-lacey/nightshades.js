@@ -8,6 +8,9 @@ import PlantCard from './PlantCard';
 import Typography from '@material-ui/core/Typography';
 import { tdwgRegionsLookup } from './utils/tdwg_regions';
 import PlantDetails from './PlantDetails';
+import IconButton from '@material-ui/core/IconButton';
+import HomeIcon from '@material-ui/icons/Home';
+import { route } from 'preact-router';
 
 const useStyles = makeStyles(() => ({
     grid: {
@@ -15,7 +18,15 @@ const useStyles = makeStyles(() => ({
     },
     title: {
         color: 'lightgrey'
-    }
+    },
+    homeCont: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+    },
+    home: {
+        color: 'lightgrey'
+    },
 }));
 
 const RegionDisplay = ({id}) => {
@@ -41,7 +52,7 @@ const RegionDisplay = ({id}) => {
 
     return (
         <Grid container spacing={3} className={classes.grid}>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
                 <Typography 
                     variant="h4" 
                     component="h1" 
@@ -50,6 +61,15 @@ const RegionDisplay = ({id}) => {
                 >
                     Plants Native To {tdwgRegionsLookup[id.toUpperCase()]}
                 </Typography>
+            </Grid>
+            <Grid item xs={6} className={classes.homeCont}>
+                <IconButton 
+                    color="default" 
+                    aria-label="return home"
+                    onClick={() => route(`/`)}
+                >
+                    <HomeIcon />
+                </IconButton>
             </Grid>
             {
                 Object.keys(plantData).length ?
