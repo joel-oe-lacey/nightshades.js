@@ -10,6 +10,22 @@ const useStyles = makeStyles(() => ({
 
 }));
 
+const generateImageSections = (images, plantName) => {
+    return Object.keys(images).map(imageType => {
+        return images[imageType].map(image => {
+            return (
+                <GridListTile key={image.id}>
+                    <img src={image.image_url} alt={`${plantName} - ${imageType}`} />
+                    <GridListTileBar
+                    title={imageType}
+                    subtitle={<span>{image.copyright}</span>}
+                    />
+                 </GridListTile>
+            )
+        })
+    })
+}
+
 const PlantImages = ({ PlantImages, PlantName }) => {
     const classes = useStyles();
 
