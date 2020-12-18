@@ -10,9 +10,9 @@ const useStyles = makeStyles(() => ({
 
 }));
 
-const generateImageSections = (images, plantName) => {
-    return Object.keys(images).map(imageType => {
-        return images[imageType].map(image => {
+const generateImageSections = (plantImages, plantName) => {
+    return Object.keys(plantImages).map(imageType => {
+        return plantImages[imageType].map(image => {
             return (
                 <GridListTile key={image.id}>
                     <img src={image.image_url} alt={`${plantName} - ${imageType}`} />
@@ -26,16 +26,16 @@ const generateImageSections = (images, plantName) => {
     })
 }
 
-const PlantImages = ({ PlantImages, PlantName }) => {
+const PlantImages = ({ plantImages, plantName }) => {
     const classes = useStyles();
 
     return (
         <GridList cellHeight={180} className={classes.gridList}>
             <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-                <ListSubheader component="div">{PlantName}</ListSubheader>
+                <ListSubheader component="div">{plantName}</ListSubheader>
             </GridListTile>
             {
-                generateImageSections(PlantImages, PlantName)
+                generateImageSections(plantImages, plantName)
             }
         </GridList>
     );
