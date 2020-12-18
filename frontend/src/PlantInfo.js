@@ -12,6 +12,14 @@ import Paper from '@material-ui/core/Paper';
 const useStyles = makeStyles(() => ({
 }));
 
+const createData = (field, value) => {
+    if (value) {
+        return { field, value };
+    }
+
+    return null;
+}
+
 const PlantInfo = ({ plantData }) => {
     const classes = useStyles();
 
