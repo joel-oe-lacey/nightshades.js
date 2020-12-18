@@ -23,6 +23,23 @@ const createData = (field, value) => {
 const PlantInfo = ({ plantData }) => {
     const classes = useStyles();
 
+    // See Trefle documentation for exact field definitions
+    // https://docs.trefle.io/docs/advanced/plants-fields
+    const { year, bibliography, author, family_common_name, main_species } = plantData;
+
+    const rows = [
+        createData('Family Common Name', family_common_name),
+        createData('Family Scientific Name', main_species?.family),
+        createData('Genus', main_species?.genus),
+        createData('Year Named', year),
+        createData('Publication Named', `${bibliography} - ${author}`),
+        createData('Common Names', main_species?.common_names?.en.join(', ')),
+        createData('Distribution (Native)', main_species?.distribution?.native.join(', ')),
+        createData('Distribution (Introduced)', main_species?.distribution?.introduced.join(', ')),
+    ].filter(el => el != null);
+
+    //other nested data still available to add
+
     return (
         <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
