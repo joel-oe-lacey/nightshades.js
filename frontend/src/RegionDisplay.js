@@ -30,6 +30,16 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
+const StyledPagination = withStyles({
+  root: {
+    width: '100%',
+    margin: '2rem 0 2rem 0',
+  },
+  ul: {
+    justifyContent: 'space-around'
+  },
+})(Pagination);
+
 const fetchPageCount = lastPath => {
     // uses regex to find total page count via last link
     // example url structure
@@ -99,7 +109,7 @@ const RegionDisplay = ({id}) => {
                         })}
                         <PlantDetails open={open} setOpen={setOpen} id={chosenPlant} />
                         { plantData?.links?.last && 
-                            <Pagination 
+                            <StyledPagination 
                                 count={fetchPageCount(plantData?.links?.last)}
                                 page={page}
                                 onChange={changePage}
