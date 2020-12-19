@@ -65,7 +65,7 @@ const RegionDisplay = ({id}) => {
     const changePage = (event, value) => {
         setPageNum(value)
         setPlantData({})
-        retrieveRegionPlantData(page)
+        retrieveRegionPlantData(value)
     }
 
     const retrieveRegionPlantData = async (page) => {
