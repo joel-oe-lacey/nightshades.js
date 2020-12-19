@@ -33,9 +33,9 @@ const PlantInfo = ({ plantData }) => {
         createData('Genus', main_species?.genus),
         createData('Year Named', year),
         createData('Publication Named', `${bibliography} - ${author}`),
-        createData('Common Names', main_species?.common_names?.en.join(', ')),
-        createData('Distribution (Native)', main_species?.distribution?.native.join(', ')),
-        createData('Distribution (Introduced)', main_species?.distribution?.introduced.join(', ')),
+        createData('Common Names', main_species?.common_names?.en?.join(', ')),
+        createData('Distribution (Native)', main_species?.distribution?.native?.join(', ')),
+        createData('Distribution (Introduced)', main_species?.distribution?.introduced?.join(', ')),
     ].filter(el => el != null);
 
     //other nested data still available to add
