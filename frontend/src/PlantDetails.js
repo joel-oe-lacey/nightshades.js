@@ -12,10 +12,8 @@ import Tab from '@material-ui/core/Tab';
 import PlantImages from './PlantImages';
 import PlantInfo from './PlantInfo';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   wrapper: {
-    // height: 'max-content',
-    // width: '80%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
@@ -24,28 +22,18 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     height: '80%',
-    width: '100%',
+    width: '80%',
     margin: '3rem 0 3rem 0'
   },
   details: {
-    height: '25rem',
-    width: '100%'
+    height: '80%',
+    width: '100%',
   },
-  plantImg: {
-    objectFit: 'contain',
+  tab: {
     height: '100%',
-    width: '50%'
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
+    width: '100%',
+    overflow: 'scroll'
+  }
 }));
 
 function a11yProps(index) {
@@ -109,14 +97,14 @@ const PlantDetails = ({open, setOpen, id}) => {
             className={classes.wrapper}
             open={open}
             onClose={setClosed}
-            aria-labelledby={Object.keys(plantData).length ? plantData.main_species?.common_name : "Plant Details Loading."}
+            aria-labelledby={plantData.main_species?.common_name}
             aria-describedby="A page of details about this plant."
         >
             {
                 Object.keys(plantData).length ? 
                     <Card className={classes.card}>
                         <CardHeader
-                            title={plantData.main_species?.common_name}
+                            title={plantData.main_species?.common_name ? plantData.main_species?.common_name : plantData.scientific_name}
                             subheader={plantData.scientific_name}
                         />
                         <CardContent
@@ -131,20 +119,22 @@ const PlantDetails = ({open, setOpen, id}) => {
                             <Tab label="Images" {...a11yProps(0)} />
                             <Tab label="Info" {...a11yProps(1)} />      
                           </Tabs>
-                          <TabPanel tab={tab} index={0}>
+                          <TabPanel className={classes.tab} tab={tab} index={0}>
                             <PlantImages 
                               plantImages={plantData.main_species?.images}
                               plantName={plantData.main_species.common_name}
                             />
                           </TabPanel>
-                          <TabPanel tab={tab} index={1}>
+                          <TabPanel className={classes.tab} tab={tab} index={1}>
                             <PlantInfo 
                               plantData={plantData}
                             />
                           </TabPanel>
                         </CardContent>
                     </Card> 
-                : <CircularProgress />
+                : <CircularProgress 
+                    className={classes.wrapper}
+                  />
             }
         </Modal>
     );
