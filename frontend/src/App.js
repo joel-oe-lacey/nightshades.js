@@ -1,12 +1,9 @@
 // eslint-disable-next-line no-unused-vars
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-// import PlantSelector from './PlantSelector';
 import RegionSelector from './RegionSelector';
-import PlantDetails from './PlantDetails';
 import RegionDisplay from './RegionDisplay';
-import Router from 'preact-router';
 
 const useStyles = makeStyles(() => ({
   appWrapper: {
@@ -17,14 +14,15 @@ const useStyles = makeStyles(() => ({
 
 const App = () => {
   const classes = useStyles();
+  const [chosenRegion, submitRegion] = useState('')
+
 
   return (
     <Container className={classes.appWrapper}>
-      <Router>
-        <RegionSelector path="/" /> 
-        <PlantDetails path="/plant/:id" />
-        <RegionDisplay path="/region/:id" />
-      </Router>
+        {
+          chosenRegion ? <RegionDisplay chosenRegion={chosenRegion} submitRegion={submitRegion} /> 
+          : <RegionSelector submitRegion={submitRegion} />
+        }
     </Container>
   );
 }
