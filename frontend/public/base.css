@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+body {
+    display: 'flex';
+    flex-direction: 'column';
+    overflow: 'scroll';
+}
+#root {
+    height: 80%;
+    width: 100%;
+    background-color: #cad2c5;
+    color: #2f3e46;
+}
+#banner {
+    height: 80%;
+    width: 100%;
+    object-fit: cover;
+}
+#article {
+    height: 80%;
+    width: 100%;
+    background-color: #354f52;
+    color: #cad2c5;
+}

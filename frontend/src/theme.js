@@ -1,11 +1,10 @@
 import { red } from '@material-ui/core/colors';
 import { createMuiTheme } from '@material-ui/core/styles';
-// import Decovar from './fonts/DecovarAlpha-VF.ttf';
 
 const decovar = {
   fontFamily: 'Decovar Alpha Regular24',
-  // fontStyle: 'normal',
-  // fontDisplay: 'swap',
+  fontStyle: 'normal',
+  fontDisplay: 'swap',
   fontWeight: '100 1000',
   src: `
     local('Decovar'),
@@ -32,20 +31,6 @@ const theme = createMuiTheme({
     MuiCssBaseline: {
       '@global': {
         '@font-face': [decovar],
-        html: {
-          height: '100%',
-          width: '100%'
-        },
-        body: {
-          height: '100%',
-          width: '100%'
-        },
-        '#root': {
-          height: '100%',
-          width: '100%',
-          overflow: 'scroll',
-          backgroundColor: '#333333'
-        },
       },
     },
   },
