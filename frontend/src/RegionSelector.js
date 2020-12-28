@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { route } from 'preact-router';
 import { tdwgRegionsData } from './utils/tdwg_regions';
 
 const useStyles = makeStyles(() => ({
@@ -35,7 +34,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const RegionSelector = () => {
+const RegionSelector = ({ submitRegion }) => {
     const classes = useStyles();
     const [selectedRegion, chooseRegion] = useState(false)
 
@@ -55,9 +54,9 @@ const RegionSelector = () => {
                     renderInput={(params) => <TextField {...params} label="Choose A Region" variant="outlined" />
                 }
                 />    
-                <Button variant="contained" onClick={() => {
+                <Button variant="contained" color="primary" onClick={() => {
                     if(selectedRegion) {                        
-                        route(`/region/${selectedRegion.L3Code.toLowerCase()}`)
+                        submitRegion(selectedRegion.L3Code.toLowerCase())
                     }
                 }}>Submit</Button>
             </Container>

@@ -11,7 +11,6 @@ import PlantDetails from './PlantDetails';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
 import Pagination from '@material-ui/lab/Pagination';
-import { route } from 'preact-router';
 
 const useStyles = makeStyles(() => ({
     grid: {
@@ -51,7 +50,7 @@ const fetchPageCount = lastPath => {
 }
 
 
-const RegionDisplay = ({id}) => {
+const RegionDisplay = ({ chosenRegion, submitRegion }) => {
     const classes = useStyles();
     const [plantData, setPlantData] = useState({})
     const [open, setOpen] = useState(false);
@@ -71,14 +70,11 @@ const RegionDisplay = ({id}) => {
     const retrieveRegionPlantData = async (page) => {
         const tokenFetch = await apiCall(`http://localhost:8080/`);
         const tokenData = await tokenFetch.json();
-        const plantList = await apiCall(`https://trefle.io/api/v1/distributions/${id}/plants?filter%5Bestablishment%5D=native&filter_not[image_url]=null&page=${page}&token=${tokenData.token}`);
+        const plantList = await apiCall(`https://trefle.io/api/v1/distributions/${chosenRegion}/plants?filter%5Bestablishment%5D=native&filter_not[image_url]=null&page=${page}&token=${tokenData.token}`);
         const fetchedPlantData = await plantList.json();
         
         setPlantData(fetchedPlantData);
     }
-
-    // eslint-disable-next-line no-console
-    console.log(plantData)
     
     return (
         <Grid container spacing={3} className={classes.grid}>
@@ -89,14 +85,14 @@ const RegionDisplay = ({id}) => {
                     gutterBottom 
                     className={classes.title}
                 >
-                    Plants Native To {tdwgRegionsLookup[id.toUpperCase()]}
+                    Plants Native To {tdwgRegionsLookup[chosenRegion.toUpperCase()]}
                 </Typography>
             </Grid>
             <Grid item xs={6} className={classes.homeCont}>
                 <IconButton 
                     color="default" 
                     aria-label="return home"
-                    onClick={() => route(`/`)}
+                    onClick={() => submitRegion('')}
                 >
                     <HomeIcon />
                 </IconButton>
