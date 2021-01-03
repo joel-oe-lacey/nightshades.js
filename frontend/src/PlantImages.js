@@ -12,13 +12,13 @@ const PlantImages = ({ plantImages, plantName }) => {
     const classes = useStyles();
 
     return (
-        <GridList cellHeight={180} className={classes.gridList}>
+        <GridList cellHeight={400} className={classes.gridList}>
             {
                 Object.keys(plantImages).map(imageType => {
                     return plantImages[imageType].map(image => {
                         return (
                             <GridListTile key={image.id}>
-                                <img src={image.image_url} alt={`${plantName} - ${imageType}`} />
+                                <a href={image.image_url} target="_blank" rel="noopener noreferrer"><img src={image.image_url} alt={`${plantName} - ${imageType}`} /></a>
                                 <GridListTileBar
                                 title={imageType}
                                 subtitle={<span>{image.copyright}</span>}
