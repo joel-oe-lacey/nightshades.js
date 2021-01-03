@@ -7,12 +7,20 @@ import Button from '@material-ui/core/Button';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
 import { tdwgRegionsData } from './utils/tdwg_regions';
 
 const useStyles = makeStyles(() => ({
     wrapper: {
-        height: '100%',
+        height: '75vh',
         width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    inner: {
+        height: '75%',
+        width: '75%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
@@ -40,28 +48,29 @@ const RegionSelector = ({ submitRegion }) => {
 
     return (
         <Box className={classes.wrapper}>
-            <Typography variant="h4" component="h1" gutterBottom className={classes.title}>
-              Select Your Region
-            </Typography>
-            <Container className={classes.root}>
-                <Autocomplete
-                    id="plant-selector"
-                    options={tdwgRegionsData}
-                    getOptionLabel={(option) => option.L3Area}
-                    onChange={(event, region) => {
-                        chooseRegion(region);
-                    }}
-                    renderInput={(params) => <TextField {...params} label="Choose A Region" variant="outlined" />
-                }
-                />    
-                <Button variant="contained" color="primary" onClick={() => {
-                    if(selectedRegion) {                        
-                        submitRegion(selectedRegion.L3Code.toLowerCase())
+            <Box className={classes.inner} component={Paper}>
+                <Typography variant="h4" component="h1" gutterBottom className={classes.title}>
+                Select Your Region
+                </Typography>
+                <Container className={classes.root}>
+                    <Autocomplete
+                        id="plant-selector"
+                        options={tdwgRegionsData}
+                        getOptionLabel={(option) => option.L3Area}
+                        onChange={(event, region) => {
+                            chooseRegion(region);
+                        }}
+                        renderInput={(params) => <TextField {...params} label="Choose A Region" variant="outlined" />
                     }
-                }}>Submit</Button>
-            </Container>
+                    />    
+                    <Button variant="contained" color="primary" onClick={() => {
+                        if(selectedRegion) {                        
+                            submitRegion(selectedRegion.L3Code.toLowerCase())
+                        }
+                    }}>Submit</Button>
+                </Container>
+            </Box>
         </Box>
-
     );
 }
 
