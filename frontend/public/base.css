@@ -12,6 +12,9 @@ body {
     flex-direction: 'column';
     overflow: 'scroll';
 }
+html {
+    scroll-behavior: smooth;
+}
 #root {
     height: min-content;
     width: 100%;
@@ -23,7 +26,14 @@ body {
 #banner {
     height: 80%;
     width: 100%;
-    object-fit: cover;
+    display: flex;
+    justify-content: center;
+    background: url('static/media/leaves.jpg');
+}
+#banner-image {
+    height: 100%;
+    width: 20%;
+    object-fit: contain;
 }
 #article {
     height: 80%;

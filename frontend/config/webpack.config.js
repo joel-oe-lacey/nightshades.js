@@ -315,7 +315,7 @@ module.exports = function(webpackEnv) {
             // smaller than specified limit in bytes as data URLs to avoid requests.
             // A missing `test` is equivalent to a match.
             {
-              test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+              test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
               loader: require.resolve('url-loader'),
               options: {
                 limit: 10000,
@@ -331,8 +331,8 @@ module.exports = function(webpackEnv) {
                     // url-loader sets mimetype if it's passed.
                     // Without this it derives it from the file extension
                     // mimetype: 'application/font-otf',
-                    // Output below fonts directory
-                    name: '../src/fonts/[name].[ext]',
+                    // Output below assets directory
+                    name: '../src/assets/[name].[ext]',
                 },
             },
             // Process application JS with Babel.
