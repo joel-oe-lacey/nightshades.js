@@ -18,7 +18,7 @@ const App = () => {
 
 
   return (
-    <Container className={classes.appWrapper}>
+    <Container className={classes.appWrapper} id="app">
         {
           chosenRegion ? <RegionDisplay chosenRegion={chosenRegion} submitRegion={submitRegion} /> 
           : <RegionSelector submitRegion={submitRegion} />
