@@ -1,69 +1,87 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import { apiCall } from './utils/fetchCalls';
-import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import Modal from '@material-ui/core/Modal';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import PlantImages from './PlantImages';
+import PlantInfo from './PlantInfo';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   wrapper: {
-    height: 'max-content',
-    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
+    outline: 0
   },
   card: {
     height: '80%',
-    width: '100%',
+    width: '80%',
     margin: '3rem 0 3rem 0'
   },
   details: {
-    height: '25rem',
-    width: '100%'
+    height: '80%',
+    width: '100%',
   },
-  plantImg: {
-    objectFit: 'contain',
+  tab: {
     height: '100%',
-    width: '50%'
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
+    width: '100%',
+    overflow: 'scroll'
+  }
 }));
 
-const PlantDetails = ({id}) => {
+function a11yProps(index) {
+  return {
+    id: `plant-details-tab-${index}`,
+    'aria-controls': `plant-details-tabpanel-${index}`,
+  };
+}
+
+function TabPanel(props) {
+  const { children, tab, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={tab !== index}
+      id={`plant-details-tabpanel-${index}`}
+      aria-labelledby={`plant-details-tab-${index}`}
+      {...other}
+    >
+      {tab === index && (
+        <React.Fragment>
+          {children}
+        </React.Fragment>
+      )}
+    </div>
+  );
+}
+
+const PlantDetails = ({open, setOpen, id}) => {
     const classes = useStyles();
     const [plantData, setPlantData] = useState({})
-    const [expanded, setExpanded] = React.useState(false);
+    const [tab, setTab] = React.useState(0);
 
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
+    const selectTab = (event, newTab) => {
+      setTab(newTab);
     };
 
+    const setClosed = () => {
+        setPlantData({});
+        setOpen(false);
+    }
+
     useEffect(() => {
-        retrievePlantData()
-    }, [])
+        if (open) {
+            retrievePlantData();
+        }
+    }, [open])
 
     const retrievePlantData = async () => {
         const tokenFetch = await apiCall(`http://localhost:8080/`);
@@ -75,90 +93,50 @@ const PlantDetails = ({id}) => {
     }
 
     return (
-        <Container className={classes.wrapper}>
+        <Modal
+            className={classes.wrapper}
+            open={open}
+            onClose={setClosed}
+            aria-labelledby={plantData.main_species?.common_name}
+            aria-describedby="A page of details about this plant."
+        >
             {
                 Object.keys(plantData).length ? 
                     <Card className={classes.card}>
                         <CardHeader
-                            title={plantData.common_name}
-                            subheader={plantData.id}
+                            title={plantData.main_species?.common_name ? plantData.main_species?.common_name : plantData.scientific_name}
+                            subheader={plantData.scientific_name}
                         />
-                        <Container
+                        <CardContent
                             className={classes.details}
                         >
-                            <img 
-                                className={classes.plantImg}
-                                src={plantData.image_url}
-                                alt={plantData.common_name}
+                          <Tabs 
+                            value={tab} 
+                            onChange={selectTab} 
+                            aria-label="Plant Details Selector"
+                            centered
+                          >
+                            <Tab label="Images" {...a11yProps(0)} />
+                            <Tab label="Info" {...a11yProps(1)} />      
+                          </Tabs>
+                          <TabPanel className={classes.tab} tab={tab} index={0}>
+                            <PlantImages 
+                              plantImages={plantData.main_species?.images}
+                              plantName={plantData.main_species.common_name}
                             />
-                        </Container>
-                        <CardContent>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                            {plantData.scientific_name}
-                            </Typography>
+                          </TabPanel>
+                          <TabPanel className={classes.tab} tab={tab} index={1}>
+                            <PlantInfo 
+                              plantData={plantData}
+                            />
+                          </TabPanel>
                         </CardContent>
-                        <CardActions disableSpacing>
-                            <IconButton
-                            className={clsx(classes.expand, {
-                                [classes.expandOpen]: expanded,
-                            })}
-                            onClick={handleExpandClick}
-                            aria-expanded={expanded}
-                            aria-label="show details"
-                            >
-                            <ExpandMoreIcon />
-                            </IconButton>
-                        </CardActions>
-                        <Collapse in={expanded} timeout="auto" unmountOnExit>
-                            <CardContent>
-                            <Typography paragraph>
-                                Scientfic Name: {plantData.scientific_name}
-                            </Typography>
-                            <Typography paragraph>
-                                Family: {plantData.family_common_name}
-                            </Typography>
-                            {
-                                plantData?.main_species?.common_names?.en && (
-                                    <React.Fragment>
-                                        <Typography paragraph>Other Names:</Typography>
-                                        <List>
-                                            {plantData.main_species.common_names.en.map(name => {
-                                                return (
-                                                    <ListItem>
-                                                        <ListItemText
-                                                            primary={name}
-                                                        />
-                                                    </ListItem>
-                                                )
-                                            })}
-                                        </List>
-                                    </React.Fragment>
-                                )
-                            }
-                            {
-                                plantData?.main_species?.distribution?.native && (
-                                    <React.Fragment>
-                                        <Typography paragraph>Native Distribution:</Typography>
-                                        <List>
-                                            {plantData.main_species.distribution.native.map(name => {
-                                                return (
-                                                    <ListItem>
-                                                        <ListItemText
-                                                            primary={name}
-                                                        />
-                                                    </ListItem>
-                                                )
-                                            })}
-                                        </List>
-                                    </React.Fragment>
-                                )
-                            }
-                            </CardContent>
-                        </Collapse>
                     </Card> 
-                : <CircularProgress />
+                : <CircularProgress 
+                    className={classes.wrapper}
+                  />
             }
-        </Container>
+        </Modal>
     );
 }
 
