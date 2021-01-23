@@ -2,8 +2,10 @@ require('dotenv').config()
 const fetch = require('node-fetch');
 const express = require('express');
 const cors = require('cors')
+const cache = require('memory-cache');
 const app = express();
 const port = process.env.PORT;
+
 
 const params = {
   origin: process.env.ORIGIN,
@@ -16,10 +18,10 @@ let cacheMiddleware = (duration) => {
     return (req, res, next) => {
         let key =  '__express__' + req.originalUrl || req.url
         let cacheContent = memCache.get(key);
-        if(cacheContent){
+        if (cacheContent) {
             res.send( cacheContent );
             return
-        }else{
+        } else {
             res.sendResponse = res.send
             res.send = (body) => {
                 memCache.put(key,body,duration*1000);
