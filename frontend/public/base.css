@@ -28,7 +28,7 @@ html {
     width: 100%;
     display: flex;
     justify-content: center;
-    background: url('static/media/leaves.jpg');
+    background: url('./leaves.jpg');
 }
 #banner-image {
     height: 100%;
