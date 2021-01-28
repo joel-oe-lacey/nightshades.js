@@ -6,6 +6,7 @@ const cache = require('memory-cache');
 const app = express();
 const port = process.env.PORT;
 
+const tokenStripRegex = /&token=.*$/;
 
 const params = {
   origin: process.env.ORIGIN,
@@ -54,3 +55,19 @@ app.get('/', async (request, response) => {
 app.listen(port, () => {
   console.log(`Server running at: http://localhost:${port}/`);
 });
+
+// Structural Pseudocode
+// Example with cache
+// app.get('/', cache(10), async (request, response) => {
+//   const jwt = await fetchJWT();
+//   response.send(jwt);
+// });
+
+// want to swap base route to /auth 
+// then want all the normal routes we're using to hit the server, dispatch 
+// want to fetch with all potential params
+
+// example fetch structure
+// https://trefle.io/api/v1/plants/${id}?token=${tokenData.token}
+
+// the token complicates thing, we'll need to strip that when caching 
