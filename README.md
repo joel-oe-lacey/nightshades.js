@@ -1,6 +1,6 @@
-# Nightshades.js
-### An app to ensure you're adhering to a Tom Brady approved diet
-Tom Brady adheres to a strict No Nightshades diet. As the definitive example of peak human performance, he must be onto something. What is a nightshade, and how can I make sure I'm not eating them? In steps this app, solving problems you didn't even know you had.
+# Hawthorn
+## Under Construction
+### An narrative tale of evolution, and wonderment toward local plants
 
 ## Tech
 - Preact
@@ -11,11 +11,4 @@ Tom Brady adheres to a strict No Nightshades diet. As the definitive example of 
 The data is sourced from the [**Trefle API**](https://trefle.io/)
 
 ## Features
-Users can select an edible plant of their choosing from an autocomplete. Upon selecting a plant, they can then view details on that plant, including whether it's Tom Brady Approved ™️. Sourcing the data on the client side requires the utilization of a very basic Express server for JWT auth.
-
-This app is built as a goofy exploration into some fun development concepts, namely Variable Fonts & JWT authorization. It was designed as the centerpiece for an accompanying video, which also looks to provide some neat botanical knowledge. ***Link will be posted on the repo once completed and released.***
-
-## Pending Functionality 
-- Variable Font Integration
-- Styling improvements
-- Deployment
+Users can select a tdwg region from an autocomplete. Upon selecting a region, they can view all native plants for that region in a paginated display. They can then click on a plant to open a modal displaying images and information pertaining to that plant in a tabbed display. Sourcing the data on the client side requires the utilization of a very basic Express server for JWT auth.
