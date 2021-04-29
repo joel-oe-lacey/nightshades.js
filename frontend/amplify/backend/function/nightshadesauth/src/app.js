@@ -6,9 +6,7 @@ or in the "license" file accompanying this file. This file is distributed on an 
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-
-
-
+require('dotenv').config()
 var express = require('express')
 var bodyParser = require('body-parser')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
@@ -29,10 +27,21 @@ app.use(function(req, res, next) {
 /**********************
  * Example get method *
  **********************/
+app.get('/auth', async (request, response) => {
+    const params = {
+      origin: request.apiGateway.context.domainName,
+      token: process.env.TOKEN
+    }
 
-app.get('/auth', function(req, res) {
-  // Add your code here
-  res.json({success: 'get call succeed!', url: req.url});
+    const authFetch = await fetch(
+    'https://trefle.io/api/auth/claim', {
+      method: 'post',
+      body: JSON.stringify(params),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    
+    const jwt = await authFetch.json();
+    response.send(jwt);
 });
 
 app.get('/auth/*', function(req, res) {
