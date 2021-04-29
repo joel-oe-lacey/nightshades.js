@@ -11,6 +11,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import PlantImages from './PlantImages';
 import PlantInfo from './PlantInfo';
+import { API } from 'aws-amplify';
 
 const useStyles = makeStyles(() => ({
   wrapper: {
@@ -84,7 +85,7 @@ const PlantDetails = ({open, setOpen, id}) => {
     }, [open])
 
     const retrievePlantData = async () => {
-        const tokenFetch = await apiCall(`http://localhost:8080/`);
+        const tokenFetch = await API.get('nightshadesapi', '/auth', {});
         const tokenData = await tokenFetch.json();
         const plantList = await apiCall(`https://trefle.io/api/v1/plants/${id}?token=${tokenData.token}`);
         const fetchedPlantData = await plantList.json();

@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
 import { route } from 'preact-router';
+import { API } from 'aws-amplify';
 
 const useStyles = makeStyles(() => ({
     wrapper: {
@@ -46,7 +47,7 @@ const PlantSelector = () => {
     }, [])
 
     const retrieveInitialCollection = async () => {
-        const tokenFetch = await apiCall(`http://localhost:8080/`);
+        const tokenFetch = await API.get('nightshadesauth', '/auth', {});
         const tokenData = await tokenFetch.json();
         const plantList = await apiCall(`https://trefle.io/api/v1/plants?filter_not%5Bedible_part%5D=null&token=${tokenData.token}`);
         const rawPlantData = await plantList.json();

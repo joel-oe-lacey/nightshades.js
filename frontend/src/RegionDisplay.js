@@ -11,6 +11,7 @@ import PlantDetails from './PlantDetails';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
 import Pagination from '@material-ui/lab/Pagination';
+import { API } from 'aws-amplify';
 
 const useStyles = makeStyles(() => ({
     grid: {
@@ -68,7 +69,7 @@ const RegionDisplay = ({ chosenRegion, submitRegion }) => {
     }
 
     const retrieveRegionPlantData = async (page) => {
-        const tokenFetch = await apiCall(`http://localhost:8080/`);
+        const tokenFetch = await API.get('nightshadesauth', '/auth', {});
         const tokenData = await tokenFetch.json();
         const plantList = await apiCall(`https://trefle.io/api/v1/distributions/${chosenRegion}/plants?filter%5Bestablishment%5D=native&filter_not[image_url]=null&page=${page}&token=${tokenData.token}`);
         const fetchedPlantData = await plantList.json();
