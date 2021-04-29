@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/auth",
+            "lambdaFunction": "nightshadesauth",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/auth"
+        }
+    ],
+    "resourceName": "nightshadesapi",
+    "apiName": "nightshadesapi",
+    "functionArns": [
+        {
+            "lambdaFunction": "nightshadesauth"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-nightshadesjs-dev-214203-authRole",
+        "unAuthRoleName": "amplify-nightshadesjs-dev-214203-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "nightshadesauth",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
