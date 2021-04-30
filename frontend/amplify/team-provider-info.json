@@ -1,23 +1,29 @@
 {
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-nightshadesjs-dev-214203-authRole",
-      "UnauthRoleArn": "arn:aws:iam::951251976491:role/amplify-nightshadesjs-dev-214203-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::951251976491:role/amplify-nightshadesjs-dev-214203-authRole",
-      "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-nightshadesjs-dev-214203-deployment",
-      "UnauthRoleName": "amplify-nightshadesjs-dev-214203-unauthRole",
-      "StackName": "amplify-nightshadesjs-dev-214203",
-      "StackId": "arn:aws:cloudformation:us-east-1:951251976491:stack/amplify-nightshadesjs-dev-214203/1d6ecaa0-a88c-11eb-9bd4-12a7f5de922f",
-      "AmplifyAppId": "d32dxjukgn9yze"
-    },
-    "categories": {
-      "function": {
-        "nightshadesauth": {
-          "deploymentBucketName": "amplify-nightshadesjs-dev-214203-deployment",
-          "s3Key": "amplify-builds/nightshadesauth-6f54592b596961387066-build.zip"
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-nightshadesjs-dev-214203-authRole",
+            "UnauthRoleArn": "arn:aws:iam::951251976491:role/amplify-nightshadesjs-dev-214203-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::951251976491:role/amplify-nightshadesjs-dev-214203-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-nightshadesjs-dev-214203-deployment",
+            "UnauthRoleName": "amplify-nightshadesjs-dev-214203-unauthRole",
+            "StackName": "amplify-nightshadesjs-dev-214203",
+            "StackId": "arn:aws:cloudformation:us-east-1:951251976491:stack/amplify-nightshadesjs-dev-214203/1d6ecaa0-a88c-11eb-9bd4-12a7f5de922f",
+            "AmplifyAppId": "d32dxjukgn9yze"
+        },
+        "categories": {
+            "function": {
+                "nightshadesauth": {
+                    "deploymentBucketName": "amplify-nightshadesjs-dev-214203-deployment",
+                    "s3Key": "amplify-builds/nightshadesauth-6f54592b596961387066-build.zip"
+                }
+            },
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d32dxjukgn9yze",
+                    "type": "cicd"
+                }
+            }
         }
-      }
     }
-  }
 }
