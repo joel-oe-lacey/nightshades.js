@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-nightshadesjs-dev-163321-authRole",
+      "UnauthRoleArn": "arn:aws:iam::951251976491:role/amplify-nightshadesjs-dev-163321-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::951251976491:role/amplify-nightshadesjs-dev-163321-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-nightshadesjs-dev-163321-deployment",
+      "UnauthRoleName": "amplify-nightshadesjs-dev-163321-unauthRole",
+      "StackName": "amplify-nightshadesjs-dev-163321",
+      "StackId": "arn:aws:cloudformation:us-east-1:951251976491:stack/amplify-nightshadesjs-dev-163321/fbb41bf0-ad17-11eb-9007-0e007e135db7",
+      "AmplifyAppId": "d1zkqnuhgd50ax"
+    }
+  }
+}
