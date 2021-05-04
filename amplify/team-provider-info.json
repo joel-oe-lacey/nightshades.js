@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-nightshadesjs-dev-172208-authRole",
+      "UnauthRoleArn": "arn:aws:iam::951251976491:role/amplify-nightshadesjs-dev-172208-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::951251976491:role/amplify-nightshadesjs-dev-172208-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-nightshadesjs-dev-172208-deployment",
+      "UnauthRoleName": "amplify-nightshadesjs-dev-172208-unauthRole",
+      "StackName": "amplify-nightshadesjs-dev-172208",
+      "StackId": "arn:aws:cloudformation:us-east-1:951251976491:stack/amplify-nightshadesjs-dev-172208/cbdca030-ad1e-11eb-a37b-0a773b285c67",
+      "AmplifyAppId": "d1itzc058bvymy"
+    },
+    "categories": {
+      "function": {
+        "nightshadesauth": {
+          "deploymentBucketName": "amplify-nightshadesjs-dev-172208-deployment",
+          "s3Key": "amplify-builds/nightshadesauth-7a4a6476333648514b76-build.zip"
+        }
+      }
+    }
+  }
+}
