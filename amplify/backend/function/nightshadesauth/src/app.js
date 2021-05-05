@@ -33,6 +33,9 @@ app.get('/auth', async (request, response) => {
       token: process.env.TOKEN
     }
 
+    // eslint-disable-next-line no-console
+    console.log('tokens', params);
+
     const authFetch = await fetch(
     'https://trefle.io/api/auth/claim', {
       method: 'post',
