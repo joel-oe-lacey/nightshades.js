@@ -27,24 +27,29 @@ app.use(function(req, res, next) {
 /**********************
  * Example get method *
  **********************/
-app.get('/auth', async (request, response) => {
+app.get('/auth', async (request, response, next) => {
     const params = {
       origin: request.apiGateway.context.domainName,
       token: process.env.TOKEN
     }
 
-    // eslint-disable-next-line no-console
-    console.log('tokens', params);
-
-    const authFetch = await fetch(
-    'https://trefle.io/api/auth/claim', {
-      method: 'post',
-      body: JSON.stringify(params),
-      headers: { 'Content-Type': 'application/json' }
-    });
-    
-    const jwt = await authFetch.json();
-    response.send(jwt);
+    try {
+      const authFetch = await fetch(
+      'https://trefle.io/api/auth/claim', {
+        method: 'post',
+        body: JSON.stringify(params),
+        headers: { 'Content-Type': 'application/json' }
+      });
+      
+      const jwt = await authFetch.json();
+      response.send(jwt);
+    } catch(err) {
+      const testResp = {
+        err, 
+        params
+      }
+      response.send(testResp);
+    }
 });
 
 app.get('/auth/*', function(req, res) {
