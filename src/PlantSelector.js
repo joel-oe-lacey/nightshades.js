@@ -47,7 +47,7 @@ const PlantSelector = () => {
     }, [])
 
     const retrieveInitialCollection = async () => {
-        const tokenFetch = await API.get('nightshadesauth', '/auth', {});
+        const tokenFetch = await API.get('nightshadesapi', '/auth', {});
         const tokenData = await tokenFetch.json();
         const plantList = await apiCall(`https://trefle.io/api/v1/plants?filter_not%5Bedible_part%5D=null&token=${tokenData.token}`);
         const rawPlantData = await plantList.json();

@@ -69,7 +69,7 @@ const RegionDisplay = ({ chosenRegion, submitRegion }) => {
     }
 
     const retrieveRegionPlantData = async (page) => {
-        const tokenFetch = await API.get('nightshadesauth', '/auth', {});
+        const tokenFetch = await API.get('nightshadesapi', '/auth', {});
         const tokenData = await tokenFetch.json();
         const plantList = await apiCall(`https://trefle.io/api/v1/distributions/${chosenRegion}/plants?filter%5Bestablishment%5D=native&filter_not[image_url]=null&page=${page}&token=${tokenData.token}`);
         const fetchedPlantData = await plantList.json();
