@@ -10,6 +10,11 @@ require('dotenv').config()
 var express = require('express')
 var bodyParser = require('body-parser')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
+const { json } = require('body-parser')
+// eslint-disable-next-line no-console
+console.log(
+  'hit lambda'
+)
 
 // declare a new express app
 var app = express()
@@ -28,6 +33,10 @@ app.use(function(req, res, next) {
  * Example get method *
  **********************/
 app.get('/auth', async (request, response, next) => {
+    // eslint-disable-next-line no-console
+    console.log(
+      'hit function'
+    )
     const params = {
       origin: request.apiGateway.context.domainName,
       token: process.env.TOKEN
@@ -42,12 +51,18 @@ app.get('/auth', async (request, response, next) => {
       });
       
       const jwt = await authFetch.json();
+      // eslint-disable-next-line no-console
+    console.log(
+      'jwt', jwt
+    )
       response.send(jwt);
     } catch(err) {
-      const testResp = {
+      const testResp = JSON.stringify({
         err, 
         params
-      }
+      })
+      // eslint-disable-next-line no-console
+      console.log('err', testResp)
       response.send(testResp);
     }
 });
